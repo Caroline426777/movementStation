@@ -80,7 +80,7 @@ function drawConcrete(){
   shapeMask.endShape(CLOSE);
 
   concrete.mask(shapeMask);
-  image(concrete, -200, -280,);
+  image(concrete, -200, -280, 400, 500);
 
   
 
