@@ -7,55 +7,108 @@ let yoff = 0;
 let blobRadius = 50;
 let blobAmount = 12;
 
-//Variables for the images
-let concrete;
-let brick;
-let brickTwo;
-
-//Variables for the masks 
-let concreteMask;
-let brickMask;
-let brickTwoMask;
-
 //Variables for the cloning of the images
 let textureClone;
-
-
 
 function setup() {
   pixelDensity(1);
   data = new Data();
   createCanvas(windowW, windowH, P2D);
 
- concrete = {
-    mask: createGraphics(300, 142),
-    image: loadImage("assets/concrete.jpg"),
+  //RED BRICK AND CONCRETE SHAPE
+//  concrete = {
+//     mask: createGraphics(300, 142),
+//     image: loadImage("assets/concrete.jpg"),
+//     customLocationX:70,
+//     customLocationY:80,
+//     rangeStart: -50,
+//     rangeEnd: 50,
+//     speedNoise: 0.05
+//   }
+
+//   brick = {
+//     mask: createGraphics(350, 170),
+//     image: loadImage("assets/brick.jpg"),
+//     customLocationX:75,
+//     customLocationY:80,
+//     rangeStart: -40,
+//     rangeEnd: 40,
+//     speedNoise: 0.01
+//   }
+
+//   brickTwo = {
+//     mask: createGraphics(450, 250),
+//     image: loadImage("assets/brick2.jpg"),
+//     customLocationX:85,
+//     customLocationY:85,
+//     rangeStart: -20,
+//     rangeEnd: 20,
+//     speedNoise: 0.03
+//   }
+
+//   brickThree = {
+//     mask: createGraphics(550, 1000),
+//     image: loadImage("assets/brick3.jpg"),
+//     customLocationX:150,
+//     customLocationY:700,
+//     rangeStart: -40,
+//     rangeEnd: 40,
+//     speedNoise: 0.03
+//   }
+
+
+  //INSULATION, WOOD, SAND SHAPE
+  insulation = {
+    mask: createGraphics(250, 160),
+    image: loadImage("assets/insulation.jpg"),
     customLocationX:70,
     customLocationY:70,
-    rangeStart: -30,
-    rangeEnd: 30
-  }
-
-  brick = {
-    mask: createGraphics(350, 190),
-    image: loadImage("assets/brick.jpg"),
-    customLocationX:75,
-    customLocationY:70,
     rangeStart: -20,
-    rangeEnd: 20
+    rangeEnd: 20,
+    speedNoise: 0.01
   }
 
-  brickTwo = {
-    mask: createGraphics(450, 350),
-    image: loadImage("assets/brick2.jpg"),
+  sand = {
+    mask: createGraphics(350, 450),
+    image: loadImage("assets/sand.jpg"),
+    customLocationX:90,
+    customLocationY:200,
+    rangeStart: -25,
+    rangeEnd: 25,
+    speedNoise: 0.01
+  }
+  sandTwo = {
+    mask: createGraphics(450, 550),
+    image: loadImage("assets/sand.jpg"),
+    customLocationX:120,
+    customLocationY:150,
+    rangeStart: -25,
+    rangeEnd: 25,
+    speedNoise: 0.01
+  }
+
+  wood = {
+    mask: createGraphics(400, 400),
+    image: loadImage("assets/wood.jpg"),
     customLocationX:85,
-    customLocationY:75,
-    rangeStart: -20,
-    rangeEnd: 20
+    customLocationY:150,
+    rangeStart: -25,
+    rangeEnd: 25,
+    speedNoise: 0.03
+  }
+  woodTwo = {
+    mask: createGraphics(500, 500),
+    image: loadImage("assets/wood.jpg"),
+    customLocationX:150,
+    customLocationY:120,
+    rangeStart: -25,
+    rangeEnd: 25,
+    speedNoise: 0.03
   }
   
+  //textures = [concrete, brick, brickTwo, brickThree];
 
-  textures = [concrete, brick, brickTwo];
+  textures = [insulation, sand, sandTwo, wood, woodTwo];
 }
 
 function draw() {
@@ -110,85 +163,10 @@ function generateShape(texture, i){
   texture.mask.endShape();
   textureClone.mask(texture.mask);
 
-  image(textureClone, -200, -200, 800, 700);
+  image(textureClone, -200, -250, 800, 800);
   pop ();
-  yoff += 0.05;
+  yoff += texture.speedNoise;
 }
-
-
-//Concrete texture layers
-// function drawConcrete(i){
-//   push ();
-//   translate(
-//     data.output.persons[i].centerPoint["x"],
-//     data.output.persons[i].centerPoint["y"], 200
-//   );
-
-//   var xoff = 0;
-
-//   concreteMask.clear();
-
-//   concreteMask.fill('rgba(0, 0, 0, 1)');
-
-//   concreteMask.beginShape();
-//   concreteClone = concrete.get(); 
-//   for(var a = 0; a < TWO_PI; a += 0.1){
-//     var offset = map(noise(xoff, yoff), -1, 1, -30, 30);
-//     var r = 50 + offset;
-//     var x = cos(a) * r;
-//     var y = sin(a) * -r;
-//     vertex(x + 70, y + 70);
-//     xoff += 0.1;
-//   }
-//   concreteMask.endShape();
-//   concreteClone.mask(concreteMask);
-
-//   image(concreteClone, -200, -200, 800, 700);
-
-//   //BRICK 1 TEXTURE
-//   brickMask.clear();
-
-//   brickMask.fill('rgba(0, 0, 0, 1)');
-
-//   brickMask.beginShape();
-//   brickClone = brick.get(); 
-//   for(var a = 0; a < TWO_PI; a += 0.1){
-//     var offset = map(noise(xoff, yoff), -1, 1, -20, 20);
-//     var r = 50 + offset;
-//     var x = cos(a) * r;
-//     var y = sin(a) * -r;
-//     vertex(x + 75, y + 70);
-//     xoff += 0.2;
-//   }
-//   brickMask.endShape();
-//   brickClone.mask(brickMask);
-
-//   image(brickClone, -200, -200, 800, 700);
-
-
-//   //BRICK 2 TEXTURE
-//   brickTwoMask.clear();
-
-//   brickTwoMask.fill('rgba(0, 0, 0, 1)');
-
-//   brickTwoMask.beginShape();
-//   brickTwoClone = brickTwo.get(); 
-//   for(var a = 0; a < TWO_PI; a += 0.1){
-//     var offset = map(noise(xoff, yoff), -1, 1, -20, 20);
-//     var r = 50 + offset;
-//     var x = cos(a) * r;
-//     var y = sin(a) * -r;
-//     vertex(x + 85, y + 75);
-//     xoff += 0.2;
-//   }
-//   brickTwoMask.endShape();
-//   brickTwoClone.mask(brickTwoMask);
-
-//   image(brickTwoClone, -200, -200, 800, 700);
-//   pop ();
-
-//   yoff += 0.05;
-// }
 
 //Generates the concrete background layers
 function drawConcreteBkgr(i) {
