@@ -2,6 +2,8 @@ let data;
 let windowW = window.innerWidth;
 let windowH = window.innerHeight;
 
+let yoff = 0;
+
 let blobRadius = 50;
 let blobAmount = 14;
 
@@ -24,8 +26,8 @@ function setup() {
   createCanvas(windowW, windowH, P2D);
 
   //Graphics that create the mask
-  concreteMask = createGraphics(300, 150);
-  brickMask = createGraphics(300, 200);
+  concreteMask = createGraphics(300, 142);
+  brickMask = createGraphics(350, 190);
   
   //Loading in the images
   concrete = loadImage("assets/concrete.jpg");
@@ -64,6 +66,8 @@ function drawConcrete(){
     data.output.persons[0].centerPoint["y"], 200
   );
 
+  var xoff = 0;
+
   concreteMask.clear();
 
   concreteMask.fill('rgba(0, 0, 0, 1)');
@@ -71,20 +75,40 @@ function drawConcrete(){
   concreteMask.beginShape();
   concreteClone = concrete.get(); 
   for(var a = 0; a < TWO_PI; a += 0.1){
-    var offset = map(noise(a, millis() / 1000), -1, 1, -20, 20);
+    var offset = map(noise(xoff, yoff), -1, 1, -30, 30);
     var r = 50 + offset;
     var x = cos(a) * r;
     var y = sin(a) * -r;
     vertex(x + 70, y + 70);
-
+    xoff += 0.1;
   }
   concreteMask.endShape();
   concreteClone.mask(concreteMask);
 
-  image(concreteClone, -200, -200, 800, 600);
+  image(concreteClone, -200, -200, 800, 700);
 
+  //BRICK TEXTURE
+  brickMask.clear();
 
+  brickMask.fill('rgba(0, 0, 0, 1)');
+
+  brickMask.beginShape();
+  brickClone = brick.get(); 
+  for(var a = 0; a < TWO_PI; a += 0.1){
+    var offset = map(noise(xoff, yoff), -1, 1, -20, 20);
+    var r = 50 + offset;
+    var x = cos(a) * r;
+    var y = sin(a) * -r;
+    vertex(x + 75, y + 70);
+    xoff += 0.2;
+  }
+  brickMask.endShape();
+  brickClone.mask(brickMask);
+
+  image(brickClone, -200, -200, 800, 700);
   pop ();
+
+  yoff += 0.05;
 }
 
 //Generates the concrete background layers
