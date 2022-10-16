@@ -10,140 +10,142 @@ let blobAmount = 12;
 //Variables for the cloning of the images
 let textureClone;
 
+let textureBlobs;
+
 function setup() {
   pixelDensity(1);
   data = new Data();
   createCanvas(windowW, windowH, P2D);
 
   //RED BRICK AND CONCRETE SHAPE
-  // concrete = {
-  //   mask: createGraphics(350, 200),
-  //   image: loadImage("assets/concrete.jpg"),
-  //   customLocationX: 80,
-  //   customLocationY: 120,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.05,
-  //   speedNoiseX: 0.1,
-  // }
-  // concreteTwo = {
-  //   mask: createGraphics(250, 200),
-  //   image: loadImage("assets/concrete.jpg"),
-  //   customLocationX: 70,
-  //   customLocationY: 70,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.05,
-  //   speedNoiseX: 0.1,
-  // }
+  concrete = {
+    mask: createGraphics(350, 200),
+    image: loadImage("assets/concrete.jpg"),
+    customLocationX: 80,
+    customLocationY: 120,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.05,
+    speedNoiseX: 0.1,
+  }
+  concreteTwo = {
+    mask: createGraphics(250, 200),
+    image: loadImage("assets/concrete.jpg"),
+    customLocationX: 70,
+    customLocationY: 70,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.05,
+    speedNoiseX: 0.1,
+  }
 
-  // brick = {
-  //   mask: createGraphics(350, 170),
-  //   image: loadImage("assets/brick.jpg"),
-  //   customLocationX: 75,
-  //   customLocationY: 80,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.01,
-  //   speedNoiseX: 0.1,
-  // }
-  // brickTwo = {
-  //   mask: createGraphics(270, 250),
-  //   image: loadImage("assets/brick.jpg"),
-  //   customLocationX: 75,
-  //   customLocationY: 80,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.01,
-  //   speedNoiseX: 0.1,
-  // }
+  brick = {
+    mask: createGraphics(350, 170),
+    image: loadImage("assets/brick.jpg"),
+    customLocationX: 75,
+    customLocationY: 80,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.01,
+    speedNoiseX: 0.1,
+  }
+  brickTwo = {
+    mask: createGraphics(270, 250),
+    image: loadImage("assets/brick.jpg"),
+    customLocationX: 75,
+    customLocationY: 80,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.01,
+    speedNoiseX: 0.1,
+  }
 
-  // brickRed = {
-  //   mask: createGraphics(400, 250),
-  //   image: loadImage("assets/brick2.jpg"),
-  //   customLocationX: 85,
-  //   customLocationY: 85,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.03,
-  //   speedNoiseX: 0.1,
-  // }
+  brickRed = {
+    mask: createGraphics(400, 250),
+    image: loadImage("assets/brick2.jpg"),
+    customLocationX: 85,
+    customLocationY: 85,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.03,
+    speedNoiseX: 0.1,
+  }
 
-  // brickDark = {
-  //   mask: createGraphics(500, 700),
-  //   image: loadImage("assets/brick3.jpg"),
-  //   customLocationX: 150,
-  //   customLocationY: 450,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.03,
-  //   speedNoiseX: 0.1,
-  // }
-  // brickDarkTwo = {
-  //   mask: createGraphics(800, 550),
-  //   image: loadImage("assets/brick3.jpg"),
-  //   customLocationX: 300,
-  //   customLocationY: 380,
-  //   rangeStart: -20,
-  //   rangeEnd: 20,
-  //   speedNoiseY: 0.03,
-  //   speedNoiseX: 0.1,
-  // }
+  brickDark = {
+    mask: createGraphics(500, 700),
+    image: loadImage("assets/brick3.jpg"),
+    customLocationX: 150,
+    customLocationY: 450,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.03,
+    speedNoiseX: 0.1,
+  }
+  brickDarkTwo = {
+    mask: createGraphics(800, 550),
+    image: loadImage("assets/brick3.jpg"),
+    customLocationX: 300,
+    customLocationY: 380,
+    rangeStart: -20,
+    rangeEnd: 20,
+    speedNoiseY: 0.03,
+    speedNoiseX: 0.1,
+  }
 
 
   //INSULATION, WOOD, SAND SHAPE
-  // insulation = {
-  //   mask: createGraphics(250, 160),
-  //   image: loadImage("assets/insulation.jpg"),
-  //   customLocationX: 70,
-  //   customLocationY: 70,
-  //   rangeStart: -15,
-  //   rangeEnd: 15,
-  //   speedNoiseY: 0.001,
-  //   speedNoiseX: 0.1,
-  // }
+  insulation = {
+    mask: createGraphics(250, 160),
+    image: loadImage("assets/insulation.jpg"),
+    customLocationX: 70,
+    customLocationY: 70,
+    rangeStart: -15,
+    rangeEnd: 15,
+    speedNoiseY: 0.001,
+    speedNoiseX: 0.1,
+  }
 
-  // sand = {
-  //   mask: createGraphics(350, 450),
-  //   image: loadImage("assets/sand.jpg"),
-  //   customLocationX: 90,
-  //   customLocationY: 200,
-  //   rangeStart: -15,
-  //   rangeEnd: 15,
-  //   speedNoiseY: 0.001,
-  //   speedNoiseX: 0.1,
-  // }
-  // sandTwo = {
-  //   mask: createGraphics(450, 550),
-  //   image: loadImage("assets/sand.jpg"),
-  //   customLocationX: 120,
-  //   customLocationY: 150,
-  //   rangeStart: -15,
-  //   rangeEnd: 15,
-  //   speedNoiseY: 0.001,
-  //   speedNoiseX: 0.1,
-  // }
+  sand = {
+    mask: createGraphics(350, 450),
+    image: loadImage("assets/sand.jpg"),
+    customLocationX: 90,
+    customLocationY: 200,
+    rangeStart: -15,
+    rangeEnd: 15,
+    speedNoiseY: 0.001,
+    speedNoiseX: 0.1,
+  }
+  sandTwo = {
+    mask: createGraphics(450, 550),
+    image: loadImage("assets/sand.jpg"),
+    customLocationX: 120,
+    customLocationY: 150,
+    rangeStart: -15,
+    rangeEnd: 15,
+    speedNoiseY: 0.001,
+    speedNoiseX: 0.1,
+  }
 
-  // wood = {
-  //   mask: createGraphics(400, 400),
-  //   image: loadImage("assets/wood.jpg"),
-  //   customLocationX: 85,
-  //   customLocationY: 150,
-  //   rangeStart: -15,
-  //   rangeEnd: 15,
-  //   speedNoiseY: 0.001,
-  //   speedNoiseX: 0.1,
-  // }
-  // woodTwo = {
-  //   mask: createGraphics(500, 500),
-  //   image: loadImage("assets/wood.jpg"),
-  //   customLocationX: 150,
-  //   customLocationY: 120,
-  //   rangeStart: -15,
-  //   rangeEnd: 15,
-  //   speedNoiseY: 0.001,
-  //   speedNoiseX: 0.1,
-  // }
+  wood = {
+    mask: createGraphics(400, 400),
+    image: loadImage("assets/wood.jpg"),
+    customLocationX: 85,
+    customLocationY: 150,
+    rangeStart: -15,
+    rangeEnd: 15,
+    speedNoiseY: 0.001,
+    speedNoiseX: 0.1,
+  }
+  woodTwo = {
+    mask: createGraphics(500, 500),
+    image: loadImage("assets/wood.jpg"),
+    customLocationX: 150,
+    customLocationY: 120,
+    rangeStart: -15,
+    rangeEnd: 15,
+    speedNoiseY: 0.001,
+    speedNoiseX: 0.1,
+  }
 
 
   //PLASTER, TARP, GLASS
@@ -218,12 +220,13 @@ function setup() {
     speedNoiseX: 0.15,
   }
 
-  //textures = [concrete, concreteTwo, brick, brickTwo, brickRed, brickDark, brickDarkTwo];
+  texturesHard = [concrete, concreteTwo, brick, brickTwo, brickRed, brickDark, brickDarkTwo];
 
-  //textures = [insulation, sand, sandTwo, wood, woodTwo];
+  texturesSoft = [insulation, sand, sandTwo, wood, woodTwo];
 
-  textures = [plaster, plasterTwo, plasterThree, plasterFour, tarp, tarpTwo, glass];
+  texturesFluid = [plaster, plasterTwo, plasterThree, plasterFour, tarp, tarpTwo, glass];
 
+  textureBlobs = [texturesHard, texturesSoft, texturesFluid];
 
   // BACKGROUND LAYERS 
   grey = {
@@ -263,12 +266,21 @@ function draw() {
     //   layer = layers[r];
     //   generateRadius(layer, i);
     // }
-
-
-    for (let s = 0; s < textures.length; s++) {
-      texture = textures[s];
+    for (let h = 0; h < texturesHard.length; h++) {
+      texture = texturesHard[h];
       generateShape(texture, i);
     }
+    for (let s = 0; s < texturesSoft.length; s++) {
+      texture = texturesSoft[s];
+      generateShape(texture, i);
+    }
+    for (let f = 0; f < texturesFluid.length; f++) {
+      texture = texturesFluid[f];
+      generateShape(texture, i);
+    }
+
+    
+
   }
 }
 
@@ -307,6 +319,7 @@ function generateShape(texture, i) {
   pop();
   yoff += texture.speedNoiseY;
 }
+
 
 //Generates the concrete background layers
 function drawConcreteBkgr(i) {
