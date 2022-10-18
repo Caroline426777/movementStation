@@ -17,28 +17,7 @@ function setup() {
   createCanvas(windowW, windowH, P2D);
 
   //RED BRICK AND CONCRETE SHAPE -- Sharp edges
-  concrete = {
-    mask: createGraphics(350, 200),
-    image: loadImage("assets/concrete.jpg"),
-    customLocationX: 90,
-    customLocationY: 120,
-    rangeStart: -50,
-    rangeEnd: 50,
-    speedNoiseY: 0.01,
-    speedNoiseX: 0.5,
-  }
-  concreteTwo = {
-    mask: createGraphics(250, 200),
-    image: loadImage("assets/concrete.jpg"),
-    customLocationX: 90,
-    customLocationY: 80,
-    rangeStart: -50,
-    rangeEnd: 50,
-    speedNoiseY: 0.01,
-    speedNoiseX: 0.5,
-  }
-
-  brick = {
+brick = {
     mask: createGraphics(350, 170),
     image: loadImage("assets/brick.jpg"),
     customLocationX: 95,
@@ -293,7 +272,7 @@ function setup() {
   }
 
 
-  texturesHard = [concrete, concreteTwo, brick, brickTwo, brickRed, brickDark, brickDarkTwo];
+  texturesHard = [brick, brickTwo, brickRed, brickDark, brickDarkTwo];
 
   texturesSoft = [insulation, sand, sandTwo, wood, woodTwo];
 
@@ -441,7 +420,7 @@ function drawHardBkgr(i) {
   );
   var radius = blobRadius * i;
 
-  fill(181, 181, 181, 255 - (255 / blobAmount) * i);
+  fill(179, 86, 63, 255 - (255 / blobAmount) * i);
 
   noStroke();
   var xoffG = 0;
