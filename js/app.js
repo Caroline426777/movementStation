@@ -424,7 +424,7 @@ function drawHardBkgr(i) {
   );
   var radius = blobRadius * i;
 
-  fill(179, 86, 63, 255 - (255 / blobAmount) * i);
+  fill(145, 74, 63, 255 - (255 / blobAmount) * i);
 
   noStroke();
   var xoffG = 0;
@@ -484,7 +484,7 @@ function drawFluidBkgr(i) {
   );
   var radius = blobRadius * i;
 
-  fill(181, 181, 181, 255 - (255 / blobAmount) * i);
+  fill(127, 164, 189, 255 - (255 / blobAmount) * i);
 
   noStroke();
   var xoffG = 0;
