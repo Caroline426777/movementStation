@@ -11,8 +11,6 @@ let blobAmount = 12;
 //Variables for the cloning of the images
 let textureClone;
 
-let textureBlobs;
-
 function setup() {
   pixelDensity(1);
   data = new Data();
@@ -26,7 +24,7 @@ function setup() {
     customLocationY: 120,
     rangeStart: -50,
     rangeEnd: 50,
-    speedNoiseY: 0.001,
+    speedNoiseY: 0.01,
     speedNoiseX: 0.5,
   }
   concreteTwo = {
@@ -36,7 +34,7 @@ function setup() {
     customLocationY: 80,
     rangeStart: -50,
     rangeEnd: 50,
-    speedNoiseY: 0.001,
+    speedNoiseY: 0.01,
     speedNoiseX: 0.5,
   }
 
@@ -47,7 +45,7 @@ function setup() {
     customLocationY: 90,
     rangeStart: -40,
     rangeEnd: 40,
-    speedNoiseY: 0.001,
+    speedNoiseY: 0.01,
     speedNoiseX: 0.4,
   }
   brickTwo = {
@@ -57,7 +55,7 @@ function setup() {
     customLocationY: 90,
     rangeStart: -40,
     rangeEnd: 40,
-    speedNoiseY: 0.001,
+    speedNoiseY: 0.01,
     speedNoiseX: 0.4,
   }
 
@@ -68,7 +66,7 @@ function setup() {
     customLocationY: 85,
     rangeStart: -30,
     rangeEnd: 30,
-    speedNoiseY: 0.001,
+    speedNoiseY: 0.01,
     speedNoiseX: 0.3,
   }
 
@@ -79,7 +77,7 @@ function setup() {
     customLocationY: 450,
     rangeStart: -20,
     rangeEnd: 20,
-    speedNoiseY: 0.001,
+    speedNoiseY: 0.01,
     speedNoiseX: 0.3,
   }
   brickDarkTwo = {
@@ -190,7 +188,7 @@ function setup() {
     speedNoiseY: 0.01,
     speedNoiseX: 0.1,
   }
-  tarp ={
+  tarp = {
     mask: createGraphics(450, 300),
     image: loadImage("assets/tarp.jpg"),
     customLocationX: 120,
@@ -200,7 +198,7 @@ function setup() {
     speedNoiseY: 0.01,
     speedNoiseX: 0.1,
   }
-  tarpTwo ={
+  tarpTwo = {
     mask: createGraphics(500, 500),
     image: loadImage("assets/tarp.jpg"),
     customLocationX: 200,
@@ -210,7 +208,7 @@ function setup() {
     speedNoiseY: 0.01,
     speedNoiseX: 0.1,
   }
-  glass ={
+  glass = {
     mask: createGraphics(250, 350),
     image: loadImage("assets/glass.png"),
     customLocationX: 70,
@@ -302,32 +300,9 @@ function setup() {
   texturesFluid = [plaster, plasterTwo, plasterThree, plasterFour, tarp, tarpTwo, glass];
 
   texturesNeutral = [carpet, carpetTwo, blueInsulation, blueInsulationTwo, brownConcrete, brownConcreteTwo, brownConcreteThree];
-
-  textureBlobs = [texturesHard, texturesSoft, texturesFluid, texturesNeutral];
-
-  // BACKGROUND LAYERS 
-  grey = {
-    color: (181, 181, 181),
-    rangeLayerStart: -90,
-    rangeLayerEnd: 90,
-    locationXWidth: 0,
-    locationYHeight: 2,
-    speedLayerNoiseY: 0.001,
-    speedLayerNoiseX: 0.5,
-  }
-
-  pink = {
-    color: (241, 155, 146),
-    rangeLayerStart: -20,
-    rangeLayerEnd: 20,
-    locationXWidth: 1.2,
-    locationYHeight: 1.8,
-    speedLayerNoiseY: 0.01,
-    speedLayerNoiseX: 0.1,
-  }
-
-  layers = [grey, pink];
 }
+
+let chosenOne = null;
 
 function draw() {
   data.update();
@@ -341,40 +316,91 @@ function draw() {
   // Feel free to change or remove them as you wish.
   for (let i = 0; i < data.output.persons.length; i++) {
 
-    for (let r = 0; r < layers.length; r++) {
-      layer = layers[r];
-      generateRadius(layer, i);
-    }
-    for (let h = 0; h < texturesHard.length; h++) {
-      texture = texturesHard[h];
-      generateShape(texture, i);
-    }
-    for (let s = 0; s < texturesSoft.length; s++) {
-      texture = texturesSoft[s];
-      generateShape(texture, i);
-    }
-    for (let f = 0; f < texturesFluid.length; f++) {
-      texture = texturesFluid[f];
-      generateShape(texture, i);
-    }
-    for (let n = 0; n < texturesNeutral.length; n++) {
-      texture = texturesNeutral[n];
-      generateShape(texture, i);
-    }
+    //let blobs =[blobHard(i), blobSoft(i), blobFluid(i), blobNeutral(i)];
 
-    let textureBlob = random(textureBlobs);
-    return textureBlob;
+    if(chosenOne == "optionOne"){
+      blobHard(i);
+    } else if(chosenOne == "optionTwo"){
+      blobSoft(i);
+    } else if(chosenOne == "optionThree"){
+      blobFluid(i);
+    } else if(chosenOne == "optionFour"){
+      blobNeutral(i);
+    }
 
   }
 }
+
+function keyPressed(){
+  let blobs = ["optionOne", "optionTwo", "optionThree", "optionFour"];
+  chosenOne = random(blobs);
+  console.log(blobs);
+}
+
+function blobHard(i) {
+  generateRadiusHard();
+
+  for (let h = 0; h < texturesHard.length; h++) {
+    texture = texturesHard[h];
+    generateShape(texture, i);
+  }
+}
+
+function blobSoft(i) {
+  generateRadiusSoft();
+
+  for (let s = 0; s < texturesSoft.length; s++) {
+    texture = texturesSoft[s];
+    generateShape(texture, i);
+  }
+}
+
+function blobFluid(i) {
+  generateRadiusFluid();
+
+  for (let f = 0; f < texturesFluid.length; f++) {
+    texture = texturesFluid[f];
+    generateShape(texture, i);
+  }
+}
+
+function blobNeutral(i) {
+  generateRadiusNeutral();
+
+  for (let n = 0; n < texturesNeutral.length; n++) {
+    texture = texturesNeutral[n];
+    generateShape(texture, i);
+  }
+}
+
 
 //Generates the layers around the last texture
-function generateRadius() {
+function generateRadiusHard() {
   for (var i = blobAmount; i > 0; i--) {
-    drawConcreteBkgr(i);
+    drawHardBkgr(i);
   }
 }
 
+function generateRadiusSoft() {
+  for (var i = blobAmount; i > 0; i--) {
+    drawSoftBkgr(i);
+  }
+}
+
+function generateRadiusFluid() {
+  for (var i = blobAmount; i > 0; i--) {
+    drawFluidBkgr(i);
+  }
+}
+
+function generateRadiusNeutral() {
+  for (var i = blobAmount; i > 0; i--) {
+    drawNeutralBkgr(i);
+  }
+}
+
+
+//Generates blobs
 function generateShape(texture, i) {
   push();
   translate(
@@ -406,7 +432,7 @@ function generateShape(texture, i) {
 
 
 //Generates the concrete background layers
-function drawConcreteBkgr(i) {
+function drawHardBkgr(i) {
   push();
   translate(
     data.output.persons[0].centerPoint["x"],
@@ -415,7 +441,7 @@ function drawConcreteBkgr(i) {
   );
   var radius = blobRadius * i;
 
-  fill(layer.color, 255 - (255 / blobAmount) * i);
+  fill(181, 181, 181, 255 - (255 / blobAmount) * i);
 
   noStroke();
   var xoffG = 0;
@@ -423,14 +449,104 @@ function drawConcreteBkgr(i) {
   beginShape();
 
   for (let i = 0; i < TWO_PI; i += 0.1) {
-    var offset = map(noise(xoffG, yoffG), -1, 1, layer.rangeLayerStart, layer.rangeLayerEnd);
+    var offset = map(noise(xoffG, yoffG), -1, 1, -60, 60);
     var r = radius + offset;
     var x = cos(i) * r;
     var y = sin(i) * -r;
-    vertex(x * layer.locationXWidth, y * layer.locationYHeight);
-    xoffG += layer.speedLayerNoiseX;
+    vertex(x, y * 2);
+    xoffG += 0.6;
   }
   endShape();
   pop();
-  yoffG += layer.speedLayerNoiseY;
+  yoffG += 0.01;
+}
+
+//Generates the soft background layers
+function drawSoftBkgr(i) {
+  push();
+  translate(
+    data.output.persons[0].centerPoint["x"],
+    data.output.persons[0].centerPoint["y"],
+    200
+  );
+  var radius = blobRadius * i;
+
+  fill(241, 155, 146, 255 - (255 / blobAmount) * i);
+
+  noStroke();
+  var xoffG = 0;
+
+  beginShape();
+
+  for (let i = 0; i < TWO_PI; i += 0.1) {
+    var offset = map(noise(xoffG, yoffG), -1, 1, -15, 15);
+    var r = radius + offset;
+    var x = cos(i) * r;
+    var y = sin(i) * -r;
+    vertex(x * 1.2, y * 1.8);
+    xoffG += 0.1;
+  }
+  endShape();
+  pop();
+  yoffG += 0.01;
+}
+
+//Generates the Fluid background layers
+function drawFluidBkgr(i) {
+  push();
+  translate(
+    data.output.persons[0].centerPoint["x"],
+    data.output.persons[0].centerPoint["y"],
+    200
+  );
+  var radius = blobRadius * i;
+
+  fill(181, 181, 181, 255 - (255 / blobAmount) * i);
+
+  noStroke();
+  var xoffG = 0;
+
+  beginShape();
+
+  for (let i = 0; i < TWO_PI; i += 0.1) {
+    var offset = map(noise(xoffG, yoffG), -1, 1, -40, 40);
+    var r = radius + offset;
+    var x = cos(i) * r;
+    var y = sin(i) * -r;
+    vertex(x * 1.2, y * 1.8);
+    xoffG += 0.15;
+  }
+  endShape();
+  pop();
+  yoffG += 0.01;
+}
+
+//Generates the neutral background layers
+function drawNeutralBkgr(i) {
+  push();
+  translate(
+    data.output.persons[0].centerPoint["x"],
+    data.output.persons[0].centerPoint["y"],
+    200
+  );
+  var radius = blobRadius * i;
+
+  fill(166, 169, 163, 255 - (255 / blobAmount) * i);
+
+  noStroke();
+  var xoffG = 0;
+
+  beginShape();
+
+  for (let i = 0; i < TWO_PI; i += 0.1) {
+    var offset = map(noise(xoffG, yoffG), -1, 1, -30, 30);
+    var r = radius + offset;
+    var x = cos(i) * r;
+    var y = sin(i) * -r;
+    vertex(x * 1.2, y * 1.8);
+    xoffG += 0.4;
+  }
+  endShape();
+  pop();
+  yoffG += 0.01;
 }
