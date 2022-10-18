@@ -11,6 +11,10 @@ let blobAmount = 12;
 //Variables for the cloning of the images
 let textureClone;
 
+function preload(){
+  document.body.style.overflow = 'hidden';
+}
+
 function setup() {
   pixelDensity(1);
   data = new Data();
@@ -383,8 +387,8 @@ function generateRadiusNeutral() {
 function generateShape(texture, i) {
   push();
   translate(
-    data.output.persons[i].centerPoint["x"],
-    data.output.persons[i].centerPoint["y"], 200
+    data.output.persons[0].centerPoint["x"],
+    data.output.persons[0].centerPoint["y"], 200
   );
 
   xoff = 0;
