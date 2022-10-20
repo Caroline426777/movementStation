@@ -1,8 +1,8 @@
 //1920 x 1080 is a 16:9 aspect ratio
 let vidW = 1920;
 let vidH = 1080;
-vidW /= 4;
-vidH /= 4;
+vidW /= 2;
+vidH /= 2;
 
 let captureConstraints = {
     video: {
